@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Scripts in this directory are run during the build process.
+# each script will be uploaded to /tmp on your build droplet,
+# given execute permissions and run.  The cleanup process will
+# remove the scripts from your build system after they have run
+# if you use the build_image task.
+#
+
+# Clean
+# rm *.gz
+# rm -rf skycoin*
+systemctl stop skycoind.service
+# rm -rf /usr/loca/bin/skycoin
+cd /tmp
+wget https://downloads.skycoin.net/wallet/skycoin-0.26.0-gui-standalone-linux-x64.tar.gz
+tar -zxvf skycoin-0.26.0-gui-standalone-linux-x64.tar.gz
+cp skycoin-0.26.0-gui-standalone-linux-x64/skycoin /usr/local/bin

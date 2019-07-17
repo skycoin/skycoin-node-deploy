@@ -1,0 +1,11 @@
+[Unit]
+Description=Skycoin node
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/start_skycoin.sh
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
