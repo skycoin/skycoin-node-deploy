@@ -7,12 +7,8 @@
 # if you use the build_image task.
 #
 
-# Clean
-# rm *.gz
-# rm -rf skycoin*
-systemctl stop skycoind.service
-# rm -rf /usr/loca/bin/skycoin
 cd /tmp
 wget https://downloads.skycoin.net/wallet/skycoin-0.26.0-gui-standalone-linux-x64.tar.gz
 tar -zxvf skycoin-0.26.0-gui-standalone-linux-x64.tar.gz
 cp skycoin-0.26.0-gui-standalone-linux-x64/skycoin /usr/local/bin
+systemctl enable skycoind.service
