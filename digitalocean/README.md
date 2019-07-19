@@ -10,7 +10,7 @@ Scripts to build skycoin Once-Click DigitalOcean image that obey the rules for M
 
 To create a image, you'll need to [create a DigitalOcean personal access token](https://www.digitalocean.com/docs/api/create-personal-access-token/) and set it to env variable `DIGITALOCEAN_TOKEN`.
 
-Run the following command to build a image, clean template files, create snapshot, and verify if it match the rules of Marketplace.
+Run the following command to build a image, clean template files, create snapshot, and verify if it matches the rules of Marketplace.
 
 ```sh
 make do-build-image-snapshot
