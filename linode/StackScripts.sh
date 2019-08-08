@@ -3,8 +3,11 @@
 #<UDF name="hostname" label="The host name for the new Linode.">
 # HOSTNAME=
 #
-#<UDF name="fqdn" label="The new Linode's Full Qualified Domain Name">
+#<UDF name="fqdn" label="The new Linode's Full Qualified Domain Name. Bind server ip to it once the server is up.">
 # FQDN=
+#
+#<UDF name="email" label="The email address for receiving notifications from letsEncrypt">
+# EMAIL=
 #
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
@@ -41,7 +44,7 @@ server {
 EOF
 
 # enable https with letsEncrypt
-certbot run --nginx -n --agree-tos -d $FQDN --email luxairlake@gmail.com
+certbot run --nginx -n --agree-tos -d $FQDN --email $EMAIL
 
 # restart nginx service
 systemctl restart nginx
