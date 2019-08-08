@@ -9,13 +9,42 @@
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
-apt-get update
-apt-get upgrade -y
-
 echo $HOSTNAME > /etc/hostname
 hostname -F /etc/hostname
 
 echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
+
+apt-get update
+apt-get upgrade -y
+
+# install certbot
+apt-get install dirmngr
+apt-get install software-properties-common -y
+add-apt-repository ppa:certbot/certbot -y
+apt-get update
+apt-get install python-certbot-nginx -y
+
+# install nginx
+apt-get install nginx -y
+systemctl enable nginx
+
+cat << EOF>/etc/nginx/conf.d/$FQDN.conf
+server {
+
+  server_name $FQDN;
+
+  location / {
+    proxy_pass http://localhost:6420;
+    proxy_set_header X-Real-IP \$remote_addr;
+  }
+}
+EOF
+
+# enable https with letsEncrypt
+certbot run --nginx -n --agree-tos -d $FQDN --email luxairlake@gmail.com
+
+# restart nginx service
+systemctl restart nginx
 
 mkdir -p /tmp/skycoin
 cd /tmp/skycoin
