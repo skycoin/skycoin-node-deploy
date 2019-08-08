@@ -20,6 +20,14 @@ echo $IPADDR $FQDN $HOSTNAME >> /etc/hosts
 apt-get update
 apt-get upgrade -y
 
+# install ufw
+apt-get ufw
+ufw enable
+ufw allow 80
+ufw allow 443
+# install fail2ban
+apt-get install fail2ban -y
+
 # install certbot
 apt-get install dirmngr
 apt-get install software-properties-common -y
